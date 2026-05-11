@@ -165,9 +165,8 @@ ApplicationWindow {
                         id: sendButton
                         text: "SEND"
                         onClicked: {
-                            const trimmedPrompt = promptInput.text.trim()
                             if (backend) {
-                                backend.submit_prompt(trimmedPrompt)
+                                backend.submit_prompt(promptInput.text)
                                 promptInput.clear()
                             }
                         }
