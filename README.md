@@ -10,6 +10,6 @@ PySide6 + QML desktop app is available in `/AICodeCompanion` with:
 Run locally:
 
 ```bash
-cd /home/runner/work/AICompanion/AICompanion/AICodeCompanion
+cd AICodeCompanion
 python main.py
 ```

@@ -52,7 +52,7 @@ ApplicationWindow {
                     Layout.fillWidth: true
 
                     Label {
-                        text: "AICODE COMPANION"
+                        text: "AI CODE COMPANION"
                         font.pixelSize: 28
                         font.bold: true
                         color: accentColor
@@ -163,11 +163,14 @@ ApplicationWindow {
                         id: sendButton
                         text: "SEND"
                         onClicked: {
+                            const trimmedPrompt = promptInput.text.trim()
                             if (backend) {
                                 backend.submit_prompt(promptInput.text)
                             }
-                            if (promptInput.text.trim().length > 0) {
+                            if (trimmedPrompt.length > 0) {
                                 logModel.append({ text: "PILOT // " + promptInput.text })
+                            } else {
+                                logModel.append({ text: "SYSTEM // Command rejected: empty input" })
                             }
                             promptInput.clear()
                         }
