@@ -165,10 +165,10 @@ ApplicationWindow {
                         onClicked: {
                             const trimmedPrompt = promptInput.text.trim()
                             if (backend) {
-                                backend.submit_prompt(promptInput.text)
+                                backend.submit_prompt(trimmedPrompt)
                             }
                             if (trimmedPrompt.length > 0) {
-                                logModel.append({ text: "PILOT // " + promptInput.text })
+                                logModel.append({ text: "PILOT // " + trimmedPrompt })
                             } else {
                                 logModel.append({ text: "SYSTEM // Command rejected: empty input" })
                             }
