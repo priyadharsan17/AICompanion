@@ -13,6 +13,8 @@ ApplicationWindow {
     property color panelColor: "#0d1633"
     property color accentColor: "#28d7ff"
     property color warmAccent: "#ff4fd8"
+    property color feedBorderPrimary: "#355f95"
+    property color feedBorderSecondary: "#6a3f8f"
 
     Rectangle {
         anchors.fill: parent
@@ -126,7 +128,7 @@ ApplicationWindow {
                         width: feed.width
                         radius: 8
                         color: "#0f1f3f"
-                        border.color: index % 2 === 0 ? "#355f95" : "#6a3f8f"
+                        border.color: index % 2 === 0 ? feedBorderPrimary : feedBorderSecondary
                         border.width: 1
                         implicitHeight: msg.implicitHeight + 16
 
@@ -166,8 +168,8 @@ ApplicationWindow {
                             const trimmedPrompt = promptInput.text.trim()
                             if (backend) {
                                 backend.submit_prompt(trimmedPrompt)
+                                promptInput.clear()
                             }
-                            promptInput.clear()
                         }
                         background: Rectangle {
                             color: "#102a56"
