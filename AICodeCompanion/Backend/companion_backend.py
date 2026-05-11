@@ -6,6 +6,7 @@ from PySide6.QtCore import QObject, Property, Signal, Slot
 class CompanionBackend(QObject):
     statusTextChanged = Signal()
     energyLevelChanged = Signal()
+    logGenerated = Signal(str)
     responseGenerated = Signal(str)
 
     def __init__(self) -> None:
@@ -39,9 +40,11 @@ class CompanionBackend(QObject):
         cleaned_prompt = prompt.strip()
         if not cleaned_prompt:
             self.set_status_text("AI CORE // ENTER A VALID COMMAND")
+            self.logGenerated.emit("SYSTEM // Command rejected: empty input")
             return
 
         self.set_status_text("AI CORE // PROCESSING COSMIC QUERY")
+        self.logGenerated.emit(f"PILOT // {cleaned_prompt}")
         self.set_energy_level(self._energy_level - 4)
         self.responseGenerated.emit(f"SYNTH RESPONSE // {cleaned_prompt.upper()}")
 

@@ -167,11 +167,6 @@ ApplicationWindow {
                             if (backend) {
                                 backend.submit_prompt(trimmedPrompt)
                             }
-                            if (trimmedPrompt.length > 0) {
-                                logModel.append({ text: "PILOT // " + trimmedPrompt })
-                            } else {
-                                logModel.append({ text: "SYSTEM // Command rejected: empty input" })
-                            }
                             promptInput.clear()
                         }
                         background: Rectangle {
@@ -220,6 +215,9 @@ ApplicationWindow {
 
     Connections {
         target: backend
+        function onLogGenerated(logLine) {
+            logModel.append({ text: logLine })
+        }
         function onResponseGenerated(responseText) {
             logModel.append({ text: responseText })
         }
