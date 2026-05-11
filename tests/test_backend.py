@@ -14,11 +14,12 @@ class CompanionBackendTests(unittest.TestCase):
         logs = []
         backend.responseGenerated.connect(responses.append)
         backend.logGenerated.connect(logs.append)
+        initial_energy = backend.energyLevel
 
         backend.submit_prompt("launch protocol")
 
         self.assertEqual(backend.statusText, "AI CORE // PROCESSING COSMIC QUERY")
-        self.assertEqual(backend.energyLevel, 68)
+        self.assertEqual(backend.energyLevel, initial_energy - 4)
         self.assertEqual(logs, ["PILOT // launch protocol"])
         self.assertEqual(responses, ["SYNTH RESPONSE // LAUNCH PROTOCOL"])
 
@@ -49,10 +50,11 @@ class CompanionBackendTests(unittest.TestCase):
     def test_recharge_updates_energy_and_status(self):
         backend = CompanionBackend()
         backend.energyLevel = 40
+        starting_energy = backend.energyLevel
 
         backend.recharge()
 
-        self.assertEqual(backend.energyLevel, 52)
+        self.assertEqual(backend.energyLevel, starting_energy + 12)
         self.assertEqual(backend.statusText, "AI CORE // RECHARGING SOLAR MATRIX")
 
 
