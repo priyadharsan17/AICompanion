@@ -1,0 +1,1 @@
+"""AICodeCompanion application package."""
