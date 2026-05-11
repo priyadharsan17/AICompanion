@@ -42,6 +42,10 @@ class CompanionBackend(QObject):
             self.set_status_text("AI CORE // ENTER A VALID COMMAND")
             self.logGenerated.emit("SYSTEM // Command rejected: empty input")
             return
+        if self._energy_level <= 0:
+            self.set_status_text("AI CORE // LOW POWER - RECHARGE REQUIRED")
+            self.logGenerated.emit("SYSTEM // Command rejected: insufficient energy")
+            return
 
         self.set_status_text("AI CORE // PROCESSING COSMIC QUERY")
         self.logGenerated.emit(f"PILOT // {cleaned_prompt}")

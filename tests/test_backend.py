@@ -32,6 +32,29 @@ class CompanionBackendTests(unittest.TestCase):
         self.assertEqual(backend.statusText, "AI CORE // ENTER A VALID COMMAND")
         self.assertEqual(logs, ["SYSTEM // Command rejected: empty input"])
 
+    def test_submit_prompt_requires_energy(self):
+        backend = CompanionBackend()
+        logs = []
+        responses = []
+        backend.logGenerated.connect(logs.append)
+        backend.responseGenerated.connect(responses.append)
+        backend.energyLevel = 0
+
+        backend.submit_prompt("launch protocol")
+
+        self.assertEqual(backend.statusText, "AI CORE // LOW POWER - RECHARGE REQUIRED")
+        self.assertEqual(logs, ["SYSTEM // Command rejected: insufficient energy"])
+        self.assertEqual(responses, [])
+
+    def test_recharge_updates_energy_and_status(self):
+        backend = CompanionBackend()
+        backend.energyLevel = 40
+
+        backend.recharge()
+
+        self.assertEqual(backend.energyLevel, 52)
+        self.assertEqual(backend.statusText, "AI CORE // RECHARGING SOLAR MATRIX")
+
 
 if __name__ == "__main__":
     unittest.main()
