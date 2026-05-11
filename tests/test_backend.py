@@ -39,7 +39,7 @@ class CompanionBackendTests(unittest.TestCase):
         responses = []
         backend.logGenerated.connect(logs.append)
         backend.responseGenerated.connect(responses.append)
-        backend.energyLevel = 0
+        backend.energyLevel = 3
 
         backend.submit_prompt("launch protocol")
 
